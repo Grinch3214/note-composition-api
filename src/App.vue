@@ -1,9 +1,16 @@
 <template>
-	<RouterLink class="button" to="/">Notes</RouterLink> |
-	<RouterLink class="button" to="/stats">Stats</RouterLink>
+	<NavBar />
 
-	<RouterView />
+	<div class="container is-max-desktop px-2 py-4">
+		<RouterView />
+	</div>
+	
 </template>
+
+<script setup>
+// imports
+import NavBar from './components/Layout/NavBar.vue';
+</script>
 
 
 <style>
