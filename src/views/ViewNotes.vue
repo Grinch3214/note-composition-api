@@ -27,10 +27,9 @@
 		</div>
 
 		<Note 
-			v-for="note in notes"
+			v-for="note in storeNotes.notes"
 			:key="note.id"
 			:note="note"
-			@deleteClicked="deleteNote"
 		/>
 
 	</div>
@@ -41,43 +40,21 @@
 	// imports
 	import { ref } from 'vue'
 	import Note from '@/components/Notes/Note.vue'
+	import { useStoreNotes } from '@/stores/storeNotes'
+
+	// store
+	const storeNotes = useStoreNotes()
 
 	// new note
 	const newNote = ref('')
 	const newNoteRef = ref(null)
 
-	// notes
-	const notes = ref([
-		{
-			id: 1,
-			content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias officia nemo facilis consequuntur aliquid itaque ea dolor non ipsum quo dignissimos nam, perferendis deleniti dolorem neque temporibus animi velit iste!'
-		},
-		{
-			id: 2,
-			content: 'Molestias officia nemo facilis consequuntur aliquid itaque ea dolor non ipsum quo dignissimos nam, perferendis deleniti dolorem neque temporibus animi velit iste!'
-		},
-		{
-			id: 3,
-			content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias officia nemo facilis consequuntur aliquid itaque ea '
-		}
-	])
-
 	const addNote = () => {
-		let currentDate = new Date().getTime()
-		let id = currentDate
 
-		let note = {
-			id,
-			content: newNote.value
-		}
-
-		notes.value.unshift(note)
+		storeNotes.addNote(newNote.value)
 
 		newNote.value = ''
 		newNoteRef.value.focus()
 	}
 
-	const deleteNote = (idDelete) => {
-		notes.value = notes.value.filter(note => { return note.id !== idDelete })
-	}
 </script>
